@@ -1,0 +1,23 @@
+{
+  "name": "ssb-private",
+  "description": "scuttlebot plugin for indexed private messages",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ssbc/ssb-private",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ssbc/ssb-private.git"
+  },
+  "dependencies": {
+    "explain-error": "^1.0.4",
+    "flumeview-level": "^2.0.2",
+    "flumeview-query": "^3.0.3",
+    "map-filter-reduce": "^3.0.3",
+    "pull-flatmap": "0.0.1",
+    "pull-stream": "^3.6.0",
+    "ssb-keys": "^7.0.9"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "author": "Secure Scuttlebutt Consortium",
+  "license": "MIT"
+}
