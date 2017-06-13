@@ -3,6 +3,8 @@ var FlumeQueryLinks = require('./lib/flumeview-links-raw')
 var explain = require('explain-error')
 var pull = require('pull-stream')
 
+var toUrlFriendly = require('base64-url').escape
+
 var indexes = [
   { key: 'TSP', value: ['timestamp'] },
   { key: 'ATY', value: [['value', 'author'], ['value', 'content', 'type'], 'timestamp'] }
@@ -20,7 +22,7 @@ exports.manifest = {
 
 exports.init = function (ssb, config) {
   var index = ssb._flumeUse(
-    `private-${ssb.id.slice(1, 10)}`,
+    `private-${toUrlFriendly(ssb.id.slice(1, 10))}`,
     FlumeQueryLinks(indexes, (msg, emit) => {
       var value = unbox(msg)
       if (value) {
