@@ -47,7 +47,7 @@ exports.init = function (ssb, config) {
           throw explain(e, 'failed to decrypt')
         }
         return data
-      } else if (msgOrData && msgOrData.value && msgOrData.value.content === 'string') {
+      } else if (msgOrData && msgOrData.value && typeof msgOrData.value.content === 'string') {
         return unbox(msgOrData)
       }
     },
@@ -63,7 +63,7 @@ exports.init = function (ssb, config) {
   }
 
   function unbox (msg) {
-    if (typeof msg.value.content === 'string') {
+    if (msg && msg.value && typeof msg.value.content === 'string') {
       var value = unboxValue(msg.value)
       if (value) {
         return {
@@ -77,7 +77,9 @@ exports.init = function (ssb, config) {
     var plaintext = null
     try {
       plaintext = ssbKeys.unbox(value.content, ssb.keys.private)
-    } catch (ex) {}
+    } catch (ex) {
+      throw explain(ex, 'failed to decrypt')
+    }
     if (!plaintext) return null
     return {
       previous: value.previous,
