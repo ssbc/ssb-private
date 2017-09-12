@@ -78,7 +78,7 @@ exports.init = function (ssb, config) {
     try {
       plaintext = ssbKeys.unbox(value.content, ssb.keys.private)
     } catch (ex) {
-      throw explain(ex, 'failed to decrypt')
+      explain(ex, 'failed to decrypt')
     }
     if (!plaintext) return null
     return {
