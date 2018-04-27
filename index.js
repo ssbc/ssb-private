@@ -30,7 +30,10 @@ exports.init = function (ssb, config) {
   )
 
   return {
-    read: index.read,
+    read: function (opts) {
+      opts.includeOriginalMessageValue = true
+      return index.read(opts)
+    },
 
     unbox: function (msgOrData) {
       if (typeof msgOrData === 'string') {
