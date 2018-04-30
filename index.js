@@ -1,5 +1,5 @@
 var ssbKeys = require('ssb-keys')
-var FlumeQueryLinks = require('./lib/flumeview-links-raw')
+var FlumeQueryLinks = require('flumeview-query/links')
 var explain = require('explain-error')
 var pull = require('pull-stream')
 
@@ -24,19 +24,15 @@ exports.init = function (ssb, config) {
   var index = ssb._flumeUse(
     `private-${toUrlFriendly(ssb.id.slice(1, 10))}`,
     FlumeQueryLinks(indexes, (msg, emit) => {
-      var value = unbox(msg)
-      if (value) {
-        emit(value)
-      }
+      if (msg.value.private === true)
+        emit(msg)
     }, indexVersion)
   )
 
   return {
     read: function (opts) {
-      return pull(
-        index.read(opts),
-        pull.map(unbox)
-      )
+      opts.unlinkedValues = true
+      return index.read(opts)
     },
 
     unbox: function (msgOrData) {
@@ -48,7 +44,12 @@ exports.init = function (ssb, config) {
         }
         return data
       } else if (msgOrData && msgOrData.value && typeof msgOrData.value.content === 'string') {
-        return unbox(msgOrData)
+        var value = unboxValue(msgOrData.value)
+        if (value) {
+          return {
+            key: msgOrData.key, value: value, timestamp: msgOrData.timestamp
+          }
+        }
       }
     },
 
@@ -59,17 +60,6 @@ exports.init = function (ssb, config) {
         return cb(explain(e, 'failed to encrypt'))
       }
       ssb.publish(ciphertext, cb)
-    }
-  }
-
-  function unbox (msg) {
-    if (msg && msg.value && typeof msg.value.content === 'string') {
-      var value = unboxValue(msg.value)
-      if (value) {
-        return {
-          key: msg.key, value: value, timestamp: msg.timestamp
-        }
-      }
     }
   }
 
