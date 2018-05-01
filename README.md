@@ -2,6 +2,10 @@
 
 [scuttlebot](http://scuttlebutt.nz/) plugin for indexed private messages.
 
+## Versions
+
+Please note that 0.1.5 requires scuttlebot 11.3
+
 ## License
 
 MIT
