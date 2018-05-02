@@ -10,7 +10,7 @@ var indexes = [
   { key: 'ATY', value: [['value', 'author'], ['value', 'content', 'type'], 'timestamp'] }
 ]
 
-var indexVersion = 0
+var indexVersion = 2
 
 exports.name = 'private'
 exports.version = require('./package.json').version
