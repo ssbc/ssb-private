@@ -4,7 +4,7 @@
 
 ## Versions
 
-Please note that 0.1.5 requires scuttlebot 11.3
+Please note that 0.2.0 requires scuttlebot 11.3
 
 ## License
 
