@@ -1,7 +1,7 @@
 {
   "name": "ssb-private",
   "description": "scuttlebot plugin for indexed private messages",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/ssbc/ssb-private",
   "repository": {
     "type": "git",
