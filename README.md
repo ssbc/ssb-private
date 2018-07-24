@@ -18,6 +18,7 @@ Decrypt a private message using your private key.  Returns the decrypted message
 
 ### `read(opts)` (sync)
 
+Returns a stream of private messages.  Takes query options similar to [ssb-query](https://github.com/dominictarr/ssb-query).
 
 ## License
 
