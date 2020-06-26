@@ -1,5 +1,5 @@
 var ssbKeys = require('ssb-keys')
-var FlumeQueryLinks = require('flumeview-query/links')
+var FlumeviewLinks = require('flumeview-links')
 var explain = require('explain-error')
 
 var toUrlFriendly = require('base64-url').escape
@@ -9,7 +9,7 @@ var indexes = [
   { key: 'ATY', value: [['value', 'author'], ['value', 'content', 'type'], 'timestamp'] }
 ]
 
-var indexVersion = 3
+var indexVersion = 4
 
 exports.name = 'private'
 exports.version = require('./package.json').version
@@ -22,7 +22,7 @@ exports.manifest = {
 exports.init = function (ssb, config) {
   var index = ssb._flumeUse(
     `private-${toUrlFriendly(ssb.id.slice(1, 10))}`,
-    FlumeQueryLinks(indexes, (msg, emit) => {
+    FlumeviewLinks(indexes, (msg, emit) => {
       if (msg.value.private === true)
         emit(msg)
     }, indexVersion)
