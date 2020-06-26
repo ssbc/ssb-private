@@ -1,7 +1,6 @@
 var ssbKeys = require('ssb-keys')
 var FlumeQueryLinks = require('flumeview-query/links')
 var explain = require('explain-error')
-var pull = require('pull-stream')
 
 var toUrlFriendly = require('base64-url').escape
 
@@ -10,7 +9,7 @@ var indexes = [
   { key: 'ATY', value: [['value', 'author'], ['value', 'content', 'type'], 'timestamp'] }
 ]
 
-var indexVersion = 2
+var indexVersion = 3
 
 exports.name = 'private'
 exports.version = require('./package.json').version
